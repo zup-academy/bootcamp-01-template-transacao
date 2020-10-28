@@ -16,6 +16,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(GET, "/actuator/prometheus").permitAll()
                 .antMatchers(GET, "/transacoes/**").hasAuthority("SCOPE_transacoes")
+                .anyRequest().hasAuthority("SCOPE_admin")
                 .and()
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
     }
