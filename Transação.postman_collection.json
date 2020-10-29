@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "ed91a896-4dc7-429d-a583-a9d368ec0f49",
+		"name": "Transação",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API Externa",
+			"item": [
+				{
+					"name": "Consultar Transação Cartão",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"5541da9c-79c5-44fb-b701-cc50ed07b45c\",\r\n    \"email\": \"marcos.couto@zup.com.br\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{transacao}}/api/cartoes",
+							"host": [
+								"{{transacao}}"
+							],
+							"path": [
+								"api",
+								"cartoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Transação",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{transacao}}/api/cartoes/5541da9c-79c5-44fb-b701-cc50ed07b45d",
+							"host": [
+								"{{transacao}}"
+							],
+							"path": [
+								"api",
+								"cartoes",
+								"5541da9c-79c5-44fb-b701-cc50ed07b45d"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Transação",
+			"item": [
+				{
+					"name": "Consultar Transações do Cartão",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJsWnppeHltNmx5Sl9EYjhWZU56T2MzWjZTdmtDbVhrWHlSUVdQalY4QkhBIn0.eyJleHAiOjE2MDM5MjIxNTgsImlhdCI6MTYwMzkyMTg1OCwianRpIjoiMGNhZDM2NGMtOTAzMS00ODc1LWI5ZjYtZDI0OGM0MzY2N2E4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDoxODA4MC9hdXRoL3JlYWxtcy9ub3NzYS10cmFuc2FjYW8iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiODU3OGMyOWMtNzhkYS00YTYyLTg0YTYtZTBhMzk1OGIwYzlmIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibm9zc2EtdHJhbnNhY2FvLWNsaWVudCIsInNlc3Npb25fc3RhdGUiOiIwMzk3Y2U5MC1hMTA2LTRkMzEtYmVhZS1mYzFkNDc5OTdkZGIiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwgdHJhbnNhY29lcyIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlBlc3NvYSBQZXNzb2EiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJwZXNzb2EiLCJnaXZlbl9uYW1lIjoiUGVzc29hIiwiZmFtaWx5X25hbWUiOiJQZXNzb2EiLCJlbWFpbCI6InBlc3NvYUBwZXNzb2EuY29tLmJyIn0.HaIWig7ucg4HF3exS9ms6AeDCDbwEItxGtsXdRCK89c2XysfddVE-1Ww-dweWKptsIHt_pl5F3n8gCGGTKpVnPgNmR29lE6k7NHKHquSEJqTl-psW7qbqT40egjltsPD8gbapmpJlfih5VnmznIKuH28QdiL7KOhuyS5PdkLYW7ZiXe3tVmEjpI3yOGywmu20RbXl0oF4v-xMoK-jvveSP8Vd0_wE5K-Y64vEVukW5miQoofGWfw9yoKFWjUU4j_TB5OolK8qT3UMiYkNocDNnOeV6oWuXxMgTLC5_EzX_Naa9YFrq94ffJL7ljQ9tVFrkcnz3Pnsg_vjpxMwpoiiw",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/transacoes/5541da9c-79c5-44fb-b701-cc50ed07b45c",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transacoes",
+								"5541da9c-79c5-44fb-b701-cc50ed07b45c"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
