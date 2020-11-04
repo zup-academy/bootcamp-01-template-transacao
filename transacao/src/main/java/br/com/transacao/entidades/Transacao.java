@@ -1,18 +1,14 @@
 package br.com.transacao.entidades;
 
 import br.com.transacao.dtos.CartaoDto;
-import br.com.transacao.dtos.TransacaoDto;
 import br.com.transacao.repositories.CartaoRepository;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.Set;
+;
 
 
 @Entity

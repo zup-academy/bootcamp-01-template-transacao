@@ -31,17 +31,14 @@ public class KafkaConsumer {
     @KafkaListener(topics="transacoes", groupId = "group_json", containerFactory = "transacaoKafkaListenerFactory")
     public void consume(String transacaoEnviadaViaKafkaTopic) throws InterruptedException, JsonProcessingException {
 
-
-        Thread.sleep(30000);
-
-        System.out.println(transacaoEnviadaViaKafkaTopic);
+        Thread.sleep(10000);
 
         var transacaoRecebida =
                 new ObjectMapper().readValue(transacaoEnviadaViaKafkaTopic, RecebeTransacaoKafka.class);
 
         var transacao = transacaoRecebida.toModel(cartaoRepository);
 
-        logger.info("[REGISTRO DE COMPRA] Transacao feita por = {}, efetivada em = {} no estabelecimento = {}",
+        logger.info("[TRANSAÇÃO] Transacao feita por = {}, efetivada em = {} no estabelecimento = {}",
                 transacao.retornaEmailDoComprador(), transacao.getEfetivadaEm(), transacao.retornaNomeEstabelecimento());
 
         transacaoRepository.save(transacao);

@@ -1,13 +1,11 @@
 package br.com.transacao.entidades;
-import br.com.transacao.dtos.TransacaoDto;
 
-import javax.persistence.Embeddable;
+import br.com.transacao.dtos.TransacaoDto;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
