@@ -3,27 +3,37 @@ package br.com.transacao.dtos;
 import br.com.transacao.entidades.Cartao;
 import br.com.transacao.entidades.Estabelecimento;
 import br.com.transacao.entidades.Transacao;
+import br.com.transacao.repositories.CartaoRepository;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 
-public class TransacaoResponse {
+public class RecebeTransacaoKafka {
 
+
+    @NotBlank
     private String id;
 
+    @NotNull
     private BigDecimal valor;
 
+    @NotBlank
     private String efetivadaEm;
 
-    private Cartao cartao;
+    @NotNull
+    private CartaoDto cartao;
 
+    @NotNull
     private Estabelecimento estabelecimento;
 
-    @Deprecated
-    public TransacaoResponse(){}
 
-    public TransacaoResponse(String id, BigDecimal valor,
-                             String efetivadaEm, Cartao cartao, Estabelecimento estabelecimento) {
+    @Deprecated
+    public RecebeTransacaoKafka(){}
+
+    public RecebeTransacaoKafka(@NotBlank String id, @NotNull BigDecimal valor, @NotBlank String efetivadaEm,
+                                @NotNull CartaoDto cartao, @NotNull Estabelecimento estabelecimento) {
         this.id = id;
         this.valor = valor;
         this.efetivadaEm = efetivadaEm;
@@ -31,9 +41,9 @@ public class TransacaoResponse {
         this.estabelecimento = estabelecimento;
     }
 
-    public Transacao toModel(){
+    public Transacao toModel(CartaoRepository cartaoRepository){
 
-        return new Transacao(id, valor, efetivadaEm, cartao, estabelecimento);
+        return new Transacao(id, valor, efetivadaEm, cartao, estabelecimento, cartaoRepository);
 
     }
 
@@ -62,11 +72,11 @@ public class TransacaoResponse {
         this.efetivadaEm = efetivadaEm;
     }
 
-    public Cartao getCartao() {
+    public CartaoDto getCartao() {
         return cartao;
     }
 
-    public void setCartao(Cartao cartao) {
+    public void setCartao(CartaoDto cartao) {
         this.cartao = cartao;
     }
 
