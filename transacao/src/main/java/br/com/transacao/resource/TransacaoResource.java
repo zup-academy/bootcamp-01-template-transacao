@@ -3,7 +3,6 @@ package br.com.transacao.resource;
 import br.com.transacao.entidades.Transacao;
 import br.com.transacao.repositories.CartaoRepository;
 import br.com.transacao.repositories.TransacaoRepository;
-import br.com.transacao.services.BuscarDezUltimasTransacoes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -22,17 +21,13 @@ public class TransacaoResource {
 
     private final CartaoRepository cartaoRepository;
 
-    private final BuscarDezUltimasTransacoes buscarDezUltimasTransacoes;
-
     private final Logger logger = LoggerFactory.getLogger(Transacao.class);
 
 
-    public TransacaoResource(TransacaoRepository transacaoRepository, CartaoRepository cartaoRepository,
-                             BuscarDezUltimasTransacoes buscarDezUltimasTransacoes) {
+    public TransacaoResource(TransacaoRepository transacaoRepository, CartaoRepository cartaoRepository) {
 
         this.transacaoRepository = transacaoRepository;
         this.cartaoRepository = cartaoRepository;
-        this.buscarDezUltimasTransacoes = buscarDezUltimasTransacoes;
 
     }
 
@@ -47,9 +42,7 @@ public class TransacaoResource {
         logger.info("[BUSCA 10 ÚLTIMAS TRANSAÇÕES] As dez últimas transações de {} foram solicitadas e exibidas ao proprietário do cartão.",
                 cartao.get().getEmail());
 
-        var dezUltimasCompras = buscarDezUltimasTransacoes.gerarLista(transacoesDtos);
-
-        return ResponseEntity.ok(dezUltimasCompras);
+        return ResponseEntity.ok(transacoesDtos);
 
     }
 }

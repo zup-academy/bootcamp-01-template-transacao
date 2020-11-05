@@ -46,7 +46,8 @@ public class Transacao {
 
     public LocalDateTime converteParaLocalDateTime(String efetivadaEm){
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+        DateTimeFormatter formatter = DateTimeFormatter
+                .ofPattern("yyyy-MM-dd'T'HH:mm:ss")
                 .withZone(ZoneId.of("UTC"));
 
         LocalDateTime date = LocalDateTime.parse(efetivadaEm, formatter);
@@ -69,43 +70,21 @@ public class Transacao {
         return this.estabelecimento.getNome();
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public BigDecimal getValor() {
         return valor;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
     }
 
     public LocalDateTime getEfetivadaEm() {
         return efetivadaEm;
     }
 
-    public void setEfetivadaEm(LocalDateTime efetivadaEm) {
-        this.efetivadaEm = efetivadaEm;
-    }
-
     public Cartao getCartao() {
         return cartao;
-    }
-
-    public void setCartao(Cartao cartao) {
-        this.cartao = cartao;
     }
 
     public Estabelecimento getEstabelecimento() {
         return estabelecimento;
     }
 
-    public void setEstabelecimento(Estabelecimento estabelecimento) {
-        this.estabelecimento = estabelecimento;
-    }
+
 }

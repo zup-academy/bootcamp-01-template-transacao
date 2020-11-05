@@ -5,8 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -29,15 +28,17 @@ public class Cartao {
         this.email = email;
     }
 
-    public Set<TransacaoDto> retornarTransacoes(){
+    public List<TransacaoDto> retornarTransacoes(){
 
-        var transacoes = this.transacoes;
+        var transacoesDtos = new ArrayList<TransacaoDto>();
 
-        Set<TransacaoDto> transacoesDtos = new HashSet<>();
+        this.transacoes.forEach(transacao -> transacoesDtos.add(new TransacaoDto(transacao)));
 
-        transacoes.forEach(transacao -> transacoesDtos.add(new TransacaoDto(transacao)));
+        transacoesDtos.sort(Comparator.comparing(TransacaoDto::getEfetivadaEm));
 
-        return transacoesDtos;
+        Collections.reverse(transacoesDtos);
+
+        return transacoesDtos.subList(0,10);
 
     }
 
@@ -45,23 +46,8 @@ public class Cartao {
         return id;
     }
 
-    public void setId(String identification) {
-        this.id = id;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Set<Transacao> getTransacoes() {
-        return transacoes;
-    }
-
-    public void setTransacoes(Set<Transacao> transacoes) {
-        this.transacoes = transacoes;
-    }
 }
