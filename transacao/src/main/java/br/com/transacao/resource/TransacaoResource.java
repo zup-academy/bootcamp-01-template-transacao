@@ -35,12 +35,12 @@ public class TransacaoResource {
     @GetMapping("/{cartaoId}")
     public ResponseEntity<?> busca(@PathVariable String cartaoId){
 
-        var cartao = cartaoRepository.findById(cartaoId);
+        var cartao = cartaoRepository.findById(cartaoId).orElseThrow();
 
-        var transacoesDtos = cartao.get().retornarTransacoes();
+        var transacoesDtos = cartao.retornarTransacoes();
 
         logger.info("[BUSCA 10 ÚLTIMAS TRANSAÇÕES] As dez últimas transações de {} foram solicitadas e exibidas ao proprietário do cartão.",
-                cartao.get().getEmail());
+                cartao.getEmail());
 
         return ResponseEntity.ok(transacoesDtos);
 

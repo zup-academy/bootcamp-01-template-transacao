@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-;
 
 
 @Entity
@@ -20,6 +19,7 @@ public class Transacao {
     @NotNull
     private BigDecimal valor;
 
+    @NotNull
     private LocalDateTime efetivadaEm;
 
     @NotNull

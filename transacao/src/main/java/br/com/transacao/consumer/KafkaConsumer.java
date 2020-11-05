@@ -21,14 +21,13 @@ public class KafkaConsumer {
     private final Logger logger = LoggerFactory.getLogger(Transacao.class);
 
 
-
     public KafkaConsumer(TransacaoRepository transacaoRepository, CartaoRepository cartaoRepository) {
         this.transacaoRepository = transacaoRepository;
         this.cartaoRepository = cartaoRepository;
     }
 
 
-    @KafkaListener(topics="${spring.kafka.topic.transactions}", groupId = "proposta")
+    @KafkaListener(topics="${spring.kafka.topic.transactions}")
     public void consume(RecebeTransacaoKafka transacaoRecebida) {
 
         var transacao = transacaoRecebida.toModel(cartaoRepository);
@@ -39,4 +38,5 @@ public class KafkaConsumer {
                 transacao.retornaEmailDoComprador(), transacao.getEfetivadaEm(), transacao.retornaNomeEstabelecimento());
 
     }
+
 }

@@ -1,3 +1,10 @@
-# Por favor faça um Fork desse projeto!
+# Transacao
 
-## Está em dúvida de como fazer um Fork? Não tem problema! [Aqui tem uma explicação do que entendemos que você deve considerar!](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo)
+
+- A API está documentado com OpenApi 3.0: localhost:8080/swagger-ui.html
+
+- A aplicação também está com healthchecks configurados: localhost:8080/actuator/health
+
+- A integração com o Keycloak está ok e o fluxo de autenticação e autorização estão funcionando.
+
+- É possível criar um container com a aplicação. O Dockerfile já está ok.
