@@ -43,7 +43,13 @@ public class RecebeTransacaoKafka {
 
     public Transacao toModel(CartaoRepository cartaoRepository){
 
-        return new Transacao(id, valor, efetivadaEm, cartao, estabelecimento, cartaoRepository);
+        var cartaoRecebido = this.cartao.toModel();
+
+        if(cartaoRepository.findById(this.cartao.getId()).isEmpty()){
+            cartaoRepository.save(cartaoRecebido);
+        }
+
+        return new Transacao(id, valor, efetivadaEm, cartaoRecebido, estabelecimento);
 
     }
 

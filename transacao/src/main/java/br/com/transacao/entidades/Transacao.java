@@ -34,12 +34,12 @@ public class Transacao {
     public Transacao(){}
 
     public Transacao(String id, BigDecimal valor, String efetivadaEm,
-                     CartaoDto cartao, Estabelecimento estabelecimento, CartaoRepository cartaoRepository) {
+                     Cartao cartao, Estabelecimento estabelecimento) {
 
         this.id = id;
         this.valor = valor;
         this.efetivadaEm = converteParaLocalDateTime(efetivadaEm);
-        this.cartao = salvaCartaoRecebidoPeloTopic(cartao, cartaoRepository);
+        this.cartao = cartao;
         this.estabelecimento = estabelecimento;
 
     }
@@ -54,11 +54,6 @@ public class Transacao {
 
         return date;
 
-    }
-
-    public Cartao salvaCartaoRecebidoPeloTopic(CartaoDto cartaoDto, CartaoRepository cartaoRepository){
-        cartaoRepository.save(cartaoDto.toModel());
-        return  cartaoDto.toModel();
     }
 
 
