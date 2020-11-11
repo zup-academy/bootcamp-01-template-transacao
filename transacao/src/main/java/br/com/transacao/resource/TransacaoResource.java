@@ -2,7 +2,6 @@ package br.com.transacao.resource;
 
 import br.com.transacao.entidades.Transacao;
 import br.com.transacao.repositories.CartaoRepository;
-import br.com.transacao.repositories.TransacaoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -16,27 +15,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/transacoes")
 public class TransacaoResource {
 
+    /* pontos de dificuldade de entendimento -> 3 pontos */
 
-    private final TransacaoRepository transacaoRepository;
-
+    /* @complexidade - acoplamento contextual */
     private final CartaoRepository cartaoRepository;
 
     private final Logger logger = LoggerFactory.getLogger(Transacao.class);
 
 
-    public TransacaoResource(TransacaoRepository transacaoRepository, CartaoRepository cartaoRepository) {
-
-        this.transacaoRepository = transacaoRepository;
+    public TransacaoResource(CartaoRepository cartaoRepository) {
         this.cartaoRepository = cartaoRepository;
-
     }
 
 
     @GetMapping("/{cartaoId}")
     public ResponseEntity<?> busca(@PathVariable String cartaoId){
 
+        /* @complexidade + @complexidade */
         var cartao = cartaoRepository.findById(cartaoId).orElseThrow();
-
         var transacoesDtos = cartao.retornarTransacoes();
 
         logger.info("[BUSCA 10 ÚLTIMAS TRANSAÇÕES] As dez últimas transações de {} foram solicitadas e exibidas ao proprietário do cartão.",

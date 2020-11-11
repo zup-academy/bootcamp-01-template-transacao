@@ -13,9 +13,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class KafkaConsumer {
 
+    /* pontos de dificuldade de entendimento -> 4 pontos */
 
+    /* @complexidade - acoplamento contextual */
     private final TransacaoRepository transacaoRepository;
 
+    /* @complexidade - acoplamento contextual */
     private final CartaoRepository cartaoRepository;
 
     private final Logger logger = LoggerFactory.getLogger(Transacao.class);
@@ -30,13 +33,12 @@ public class KafkaConsumer {
     @KafkaListener(topics="${spring.kafka.topic.transactions}")
     public void consume(RecebeTransacaoKafka transacaoRecebida) {
 
+        /* @complexidade + @complexidade */
         var transacao = transacaoRecebida.toModel(cartaoRepository);
-
         transacaoRepository.save(transacao);
 
         logger.info("[TRANSAÇÃO] Transacao feita por = {}, efetivada em = {} no estabelecimento = {}.",
                 transacao.retornaEmailDoComprador(), transacao.getEfetivadaEm(), transacao.retornaNomeEstabelecimento());
 
     }
-
 }
