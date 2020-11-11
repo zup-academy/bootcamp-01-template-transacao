@@ -14,7 +14,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers(GET, "/actuator/prometheus").permitAll()
+                .antMatchers(GET, "/actuator/**").permitAll()
                 .antMatchers(GET, "/transacoes/**").hasAuthority("SCOPE_transacoes:read")
                 .anyRequest().hasAuthority("SCOPE_admin")
                 .and()

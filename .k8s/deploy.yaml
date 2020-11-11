@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    version: v1
+    app: transacao
+    team: cartao-branco
+  name: transacao
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transacao
+  template:
+    metadata:
+      labels:
+        app: transacao
+        version: v1
+    spec:
+      containers:
+        - image: marcoscoutozup/transacao:latest
+          imagePullPolicy: Always
+          name: transacao
+          envFrom:
+            - configMapRef:
+                name: transacao-config
+
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "700m"
+            limits:
+              memory: "512Mi"
+              cpu: "900m"
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 2222
+              scheme: HTTP
+            initialDelaySeconds: 60
+
+          ports:
+            - containerPort: 2222
+              name: http
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 2222
+              scheme: HTTP
+            initialDelaySeconds: 60
