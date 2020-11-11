@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 import static io.restassured.RestAssured.given;
 
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ConsultaDezUltimasTransacoesTeste {
@@ -31,10 +32,9 @@ public class ConsultaDezUltimasTransacoesTeste {
                 .when()
                 .get()
                 .then()
-                .statusCode(HttpStatus.NOT_FOUND.value());
+                .statusCode(HttpStatus.OK.value());
 
     }
-
 
 
     @Test
