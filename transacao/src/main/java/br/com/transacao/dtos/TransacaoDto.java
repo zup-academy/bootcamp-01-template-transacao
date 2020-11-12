@@ -3,7 +3,6 @@ package br.com.transacao.dtos;
 import br.com.transacao.entidades.Cartao;
 import br.com.transacao.entidades.Estabelecimento;
 import br.com.transacao.entidades.Transacao;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -28,9 +27,7 @@ public class TransacaoDto {
     }
 
     public CartaoDto toDto(Cartao cartao){
-
         return new CartaoDto(cartao.getId(), cartao.getEmail());
-
     }
 
     public BigDecimal getValor() {

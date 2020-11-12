@@ -40,7 +40,7 @@ public class ConsultaDezUltimasTransacoesTeste {
     @Test
     public void deveriaRetornarNotFoundConsultaTransacoesCartaoNaoExistente() throws JSONException {
 
-        var numeroCartaoNaoExistente = "5541da9c-79c5-44fb-b701-cc50ed07b45e";
+        var numeroCartaoNaoExistente = "5541da9c-79c5-44fb-b701-cc50ed07b412";
 
         given()
                 .basePath("/api/transacoes/" + numeroCartaoNaoExistente)

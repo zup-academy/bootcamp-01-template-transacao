@@ -7,6 +7,8 @@ import javax.validation.constraints.NotBlank;
 @Embeddable
 public class Estabelecimento {
 
+    /* pontos de dificuldade de entendimento -> 0 */
+
     @NotBlank
     private String nome;
 

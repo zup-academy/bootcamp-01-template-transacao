@@ -13,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 @Entity
 public class Transacao {
 
+    /* pontos de dificuldade de entendimento -> 5 */
+
     @Id
     private String id;
 
@@ -22,10 +24,12 @@ public class Transacao {
     @NotNull
     private LocalDateTime efetivadaEm;
 
+    /* @complexidade (1) - classe específica */
     @NotNull
     @ManyToOne
     private Cartao cartao;
 
+    /* @complexidade (1) - classe específica */
     @NotNull
     @Embedded
     private  Estabelecimento estabelecimento;
@@ -44,23 +48,23 @@ public class Transacao {
 
     }
 
+    /* @complexidade (1) - método específico */
     public LocalDateTime converteParaLocalDateTime(String efetivadaEm){
 
         DateTimeFormatter formatter = DateTimeFormatter
                 .ofPattern("yyyy-MM-dd'T'HH:mm:ss")
                 .withZone(ZoneId.of("UTC"));
 
-        LocalDateTime date = LocalDateTime.parse(efetivadaEm, formatter);
-
-        return date;
+        return LocalDateTime.parse(efetivadaEm, formatter);
 
     }
 
-
+    /* @complexidade (1) - método específico */
     public String retornaEmailDoComprador(){
         return this.cartao.getEmail();
     }
 
+    /* @complexidade (1) - método específico */
     public String retornaNomeEstabelecimento(){
         return this.estabelecimento.getNome();
     }

@@ -8,3 +8,26 @@
 - A integração com o Keycloak está ok e o fluxo de autenticação e autorização estão funcionando.
 
 - É possível criar um container com a aplicação. O Dockerfile já está ok.
+
+
+## Prometheus e grafana
+
+## Kubernetes
+
+
+## Pitest
+
+![](/readme-images/testesTransacao.png)
+
+
+## CDD
+
+![](/readme-images/grafico1.png)
+
+![](/readme-images/grafico2.png)
+
+
+
+## CodeMR
+
+![](/readme-images/transacaoCodeMR.png)

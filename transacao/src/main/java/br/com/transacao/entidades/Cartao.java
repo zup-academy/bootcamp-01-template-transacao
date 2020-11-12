@@ -11,12 +11,15 @@ import java.util.*;
 @Entity
 public class Cartao {
 
+    /* pontos de dificuldade de entendimento -> 2 */
+
     @Id
     private String id;
 
     @NotBlank
     private String email;
 
+    /* @complexidade (1) - classe específica */
     @OneToMany(mappedBy = "cartao")
     private Set<Transacao> transacoes = new HashSet<>();
 
@@ -28,6 +31,7 @@ public class Cartao {
         this.email = email;
     }
 
+    /* @complexidade (1) - método específico */
     public List<TransacaoDto> retornarTransacoes(){
 
         var transacoesDtos = new ArrayList<TransacaoDto>();
