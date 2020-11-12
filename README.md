@@ -17,7 +17,7 @@
 
 ## Pitest
 
-![](/readme-images/testesTransacao.png)
+![](/readme-images/testesTransacao.jpg)
 
 
 ## CDD
@@ -30,4 +30,4 @@
 
 ## CodeMR
 
-![](/readme-images/transacaoCodeMR.png)
+![](/readme-images/transacaoCodeMR.jpg)
