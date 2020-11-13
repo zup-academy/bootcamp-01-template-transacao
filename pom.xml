@@ -25,6 +25,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
 		<!-- Validação -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -32,7 +33,6 @@
 		</dependency>
 
 		<!-- Metricas -->
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -44,7 +44,6 @@
 		</dependency>
 
 		<!-- OpenTracing-->
-
 		<dependency>
 			<groupId>io.opentracing.contrib</groupId>
 			<artifactId>opentracing-spring-jaeger-web-starter</artifactId>
@@ -53,26 +52,8 @@
 
 		<dependency>
 			<groupId>io.opentracing.contrib</groupId>
-			<artifactId>opentracing-spring-cloud-core</artifactId>
-			<version>0.5.9</version>
-		</dependency>
-
-		<dependency>
-			<groupId>io.opentracing.contrib</groupId>
-			<artifactId>opentracing-spring-cloud-feign-starter</artifactId>
-			<version>0.5.9</version>
-		</dependency>
-
-		<dependency>
-			<groupId>io.opentracing.contrib</groupId>
-			<artifactId>opentracing-jdbc</artifactId>
-			<version>0.2.12</version>
-		</dependency>
-
-		<dependency>
-			<groupId>io.opentracing.contrib</groupId>
-			<artifactId>opentracing-kafka-client</artifactId>
-			<version>0.1.15</version>
+			<artifactId>opentracing-spring-jaeger-cloud-starter</artifactId>
+			<version>3.2.2</version>
 		</dependency>
 
 		<!-- WebClient -->
@@ -80,12 +61,14 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
+
 		<!--Event Straming-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-stream-kafka</artifactId>
 			<version>3.0.7.RELEASE</version>
 		</dependency>
+
 		<!-- Spring Data e JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -97,6 +80,23 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- Segurança -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
+		</dependency>
+
 		<!-- Teste -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
