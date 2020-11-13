@@ -26,6 +26,7 @@ public class ListenerDeTransacao {
     public void ouvir (EventoDeTransacaoListener eventoDeTransacaoListener) {
         logger.info("Evento id={} recebido com sucesso!", eventoDeTransacaoListener.getId());
         Compra compra = eventoDeTransacaoListener.toModel();
+        logger.info("Evento id={} transformado em compra com sucesso!", eventoDeTransacaoListener.getId());
 
         entityManager.persist(compra);
         logger.info("Compra id={} valor={} cadastrada com sucesso!", compra.getId(), compra.getValor());

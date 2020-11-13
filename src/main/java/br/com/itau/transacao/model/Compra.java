@@ -42,7 +42,6 @@ public class Compra {
         this.efetivadaEm = efetivadaEm;
     }
 
-
     public String getId() {
         return id;
     }

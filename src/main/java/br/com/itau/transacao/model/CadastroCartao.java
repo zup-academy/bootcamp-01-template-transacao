@@ -1,19 +1,17 @@
 package br.com.itau.transacao.model;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-public class CartaoListener {
+public class CadastroCartao {
 
     @NotBlank
-    private String id;
+    private final String id;
     @NotBlank
-    private String email;
+    @Email
+    private final String email;
 
-    @Deprecated
-    public CartaoListener() {
-    }
-
-    public CartaoListener(@NotBlank String id, @NotBlank String email) {
+    public CadastroCartao(@NotBlank String id, @NotBlank @Email String email) {
         this.id = id;
         this.email = email;
     }

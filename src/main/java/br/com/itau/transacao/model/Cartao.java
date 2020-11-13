@@ -4,8 +4,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 @Entity
 public class Cartao {
@@ -14,8 +12,8 @@ public class Cartao {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
-    @NotNull
-    private UUID numeroCartao;
+    @NotBlank
+    private String numeroCartao;
     @NotBlank
     private String email;
     @OneToOne
@@ -26,7 +24,7 @@ public class Cartao {
     public Cartao() {
     }
 
-    public Cartao(@NotBlank UUID numeroCartao, @NotBlank String email) {
+    public Cartao(@NotBlank String numeroCartao, @NotBlank String email) {
         this.numeroCartao = numeroCartao;
         this.email = email;
     }
@@ -39,11 +37,11 @@ public class Cartao {
         this.id = id;
     }
 
-    public UUID getNumeroCartao() {
+    public String getNumeroCartao() {
         return numeroCartao;
     }
 
-    public void setNumeroCartao(UUID numeroCartao) {
+    public void setNumeroCartao(String numeroCartao) {
         this.numeroCartao = numeroCartao;
     }
 
