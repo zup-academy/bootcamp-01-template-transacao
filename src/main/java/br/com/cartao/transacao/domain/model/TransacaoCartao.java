@@ -1,9 +1,12 @@
 package br.com.cartao.transacao.domain.model;
 
+import br.com.cartao.transacao.utils.Encoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -15,26 +18,28 @@ public class TransacaoCartao {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
-
+    @NotBlank
     private String idTransacaoLegado;
-
+    @NotNull
     private BigDecimal valor;
     @Embedded
     private EstabelecimentoCompra estabelecimento;
-    @ManyToOne
-    private Cartao cartao;
-    @JsonFormat(pattern = "yyyy-MM-ddTHH:mm:ss", shape = JsonFormat.Shape.STRING)
+    @NotBlank
+    private String idCartao;
+    @NotBlank
+    private String email;
     private LocalDateTime efetivadaEm;
 
     @Deprecated
     public TransacaoCartao() {
     }
 
-    public TransacaoCartao(String idTransacaoListener, BigDecimal valor, EstabelecimentoCompra estabelecimento, Cartao cartao, LocalDateTime efetivadaEm) {
+    public TransacaoCartao(String idTransacaoListener, BigDecimal valor, EstabelecimentoCompra estabelecimento, String idCartao, String email, LocalDateTime efetivadaEm) {
         this.idTransacaoLegado = idTransacaoListener;
         this.valor = valor;
         this.estabelecimento = estabelecimento;
-        this.cartao = cartao;
+        this.idCartao = Encoder.encode(idCartao);
+        this.email = email;
         this.efetivadaEm = efetivadaEm;
     }
 
@@ -54,11 +59,16 @@ public class TransacaoCartao {
         return estabelecimento;
     }
 
-    public Cartao getCartao() {
-        return cartao;
+    public String getIdCartao() {
+        return idCartao;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public LocalDateTime getEfetivadaEm() {
         return efetivadaEm;
     }
+
 }

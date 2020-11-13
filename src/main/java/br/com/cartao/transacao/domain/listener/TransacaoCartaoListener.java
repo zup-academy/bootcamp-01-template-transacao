@@ -1,17 +1,12 @@
 package br.com.cartao.transacao.domain.listener;
 
-import br.com.cartao.transacao.domain.model.Cartao;
 import br.com.cartao.transacao.domain.model.EstabelecimentoCompra;
 import br.com.cartao.transacao.domain.model.TransacaoCartao;
 import br.com.cartao.transacao.repository.CartaoRepository;
-import br.com.cartao.transacao.utils.Encoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class TransacaoCartaoListener {
 
@@ -93,15 +88,15 @@ public class TransacaoCartaoListener {
     }
 
     public TransacaoCartao toModel(CartaoRepository cartaoRepository){
-        List<Cartao> cartaoSolicitado = cartaoRepository.findAll().stream()
+/*        List<Cartao> cartaoSolicitado = cartaoRepository.findAll().stream()
                 .filter(cartao ->
                         Encoder.decode(cartao.getCartaoId()).equals(this.cartao.getId())
-                ).collect(Collectors.toList());
+                ).collect(Collectors.toList());*/
 
-        Assert.notEmpty(cartaoSolicitado,"Cartão não encontrado na base de dados. ");
+        //Assert.notEmpty(cartaoSolicitado,"Cartão não encontrado na base de dados. ");
 
         EstabelecimentoCompra estabelecimentoCompra = this.estabelecimento.toModel();
-        return new TransacaoCartao(this.id,this.valor,estabelecimentoCompra, cartaoSolicitado.get(0), LocalDateTime.parse(this.efetivadaEm));
+        return new TransacaoCartao(this.id,this.valor,estabelecimentoCompra, this.cartao.getId(), this.cartao.getEmail(), LocalDateTime.parse(this.efetivadaEm));
     }
 }
 
