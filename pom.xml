@@ -48,6 +48,25 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 			<version>${openfeign.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
+<!--		A primeira dependência nos ajuda a configurar nossa aplicação como Resource Server-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
+<!--		A segunda dependência configuramos o Spring Framework para interações com Tokens JWT,
+essa lib nos ajudar a "abrir" o token e manipulá-lo com classes java-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
