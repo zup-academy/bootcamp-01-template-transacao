@@ -8,14 +8,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Carga intrínseca máxima permitida - 9
+ * Carga intrínseca da classe - 4
+ */
+
 public class TransacaoCartaoListener {
 
     private String id;
 
     private BigDecimal valor;
-
+    // +1
     private EstabelecimentoCompraListener estabelecimento;
-
+    // +1
     private CartaoListener cartao;
     @JsonFormat(pattern = "yyyy-MM-ddTHH:mm:ss", shape = JsonFormat.Shape.STRING)
     private String efetivadaEm;
@@ -86,15 +91,9 @@ public class TransacaoCartaoListener {
                 ", efetivadaEm=" + efetivadaEm +
                 '}';
     }
-
+    // +1
     public TransacaoCartao toModel(CartaoRepository cartaoRepository){
-/*        List<Cartao> cartaoSolicitado = cartaoRepository.findAll().stream()
-                .filter(cartao ->
-                        Encoder.decode(cartao.getCartaoId()).equals(this.cartao.getId())
-                ).collect(Collectors.toList());*/
-
-        //Assert.notEmpty(cartaoSolicitado,"Cartão não encontrado na base de dados. ");
-
+        // +1
         EstabelecimentoCompra estabelecimentoCompra = this.estabelecimento.toModel();
         return new TransacaoCartao(this.id,this.valor,estabelecimentoCompra, this.cartao.getId(), this.cartao.getEmail(), LocalDateTime.parse(this.efetivadaEm));
     }

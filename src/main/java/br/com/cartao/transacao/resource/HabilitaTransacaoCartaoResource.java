@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.Optional;
 
+/**
+ * Carga intrínseca máxima permitida - 7
+ * Carga intrínseca da classe - 7
+ */
+
 @RestController
 @RequestMapping("/v1/transacoes")
 public class HabilitaTransacaoCartaoResource {

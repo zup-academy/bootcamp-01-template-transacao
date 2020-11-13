@@ -9,6 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Carga intrínseca máxima permitida - 7
+ * Carga intrínseca da classe - 4
+ */
+
 @Service
 public class VerificaCartaoValido {
 
