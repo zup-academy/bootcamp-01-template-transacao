@@ -2,6 +2,7 @@ package com.marcoscoutozup.transacao.transacao;
 
 import com.marcoscoutozup.transacao.cartao.Cartao;
 import com.marcoscoutozup.transacao.estabelecimento.Estabelecimento;
+import com.marcoscoutozup.transacao.utils.JwtUtils;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -61,5 +62,11 @@ public class Transacao {
         Assert.notNull(transacoes, "A lista de transações não pode ser nula");
                                                 //4
         return transacoes.stream().map(Transacao::toResponse).collect(Collectors.toList());
+    }
+
+    public boolean verificarSeEmailDoTokenEIgualAoEmailDaTransacao(String token){
+        Assert.notNull(token, "O token não pode ser nulo para verificação dos dados");
+        String emailDoToken = JwtUtils.retornarEmailDoToken(token);
+        return this.cartao.verificarParidadeDeEmail(emailDoToken);
     }
 }

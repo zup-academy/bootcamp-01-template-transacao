@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import java.util.HashMap;
@@ -30,7 +27,8 @@ public class TransacaoController {
     }
 
     @GetMapping("/{idCartao}")
-    public ResponseEntity consultarTransacoesDoCartao(@PathVariable UUID idCartao){
+    public ResponseEntity consultarTransacoesDoCartao(@PathVariable UUID idCartao,
+                                                      @RequestHeader(name = "Authorization") String token){
                 //1
        List<Transacao> transacoes = entityManager.createNamedQuery("findTransacoesPorCartao", Transacao.class)
                 .setParameter("idCartao", idCartao)
@@ -41,8 +39,16 @@ public class TransacaoController {
         if(transacoes.isEmpty()){
             log.warn("[CONSULTAR TRANSAÇÕES] Nenhuma transação encontrada para o cartão {}", idCartao);
             Map response = new HashMap();
-            response.put("mensagem", "Nenhuma transação foi encontrada para o cartão " + idCartao);
+            response.put("mensagem", "Nenhuma transação foi encontrada para o cartão" + idCartao);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        //3
+        if(!transacoes.get(0).verificarSeEmailDoTokenEIgualAoEmailDaTransacao(token)){
+            log.warn("[CONSULTAR TRANSAÇÕES] O email do token não corresponde ao proprietário do cartão da transação. Cartão: {}", idCartao);
+            Map response = new HashMap();
+            response.put("mensagem", "Consulta não autorizada. As credenciais são inválidas para as transacões pesquisadas.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
 
         return ResponseEntity.ok(Transacao.toResponseList(transacoes));

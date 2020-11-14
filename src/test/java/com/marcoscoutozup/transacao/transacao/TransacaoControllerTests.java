@@ -44,7 +44,20 @@ public class TransacaoControllerTests {
        when(query.setParameter(anyString(), any())).thenReturn(query);
        when(query.setMaxResults(anyInt())).thenReturn(query);
        when(query.getResultList()).thenReturn(new ArrayList());
-       ResponseEntity responseEntity = controller.consultarTransacoesDoCartao(UUID.randomUUID());
+       ResponseEntity responseEntity = controller.consultarTransacoesDoCartao(UUID.randomUUID(), new String());
+       Assertions.assertTrue(responseEntity.getStatusCode().is4xxClientError());
+       Assertions.assertTrue(responseEntity.getBody() instanceof Map);
+    }
+
+    @Test
+    @DisplayName("Não deve retornar resultado se email do token não for o mesmo do proprietário do cartão")
+    public void naoDeveRetornarResultadoSeEmailDoTokenNaoForOMesmoDoProprietarioDoCartao(){
+       when(entityManager.createNamedQuery(anyString(), any())).thenReturn(query);
+       when(query.setParameter(anyString(), any())).thenReturn(query);
+       when(query.setMaxResults(anyInt())).thenReturn(query);
+       when(query.getResultList()).thenReturn(List.of(transacao));
+       when(transacao.verificarSeEmailDoTokenEIgualAoEmailDaTransacao(anyString())).thenReturn(false);
+       ResponseEntity responseEntity = controller.consultarTransacoesDoCartao(UUID.randomUUID(), new String());
        Assertions.assertTrue(responseEntity.getStatusCode().is4xxClientError());
        Assertions.assertTrue(responseEntity.getBody() instanceof Map);
     }
@@ -56,7 +69,8 @@ public class TransacaoControllerTests {
        when(query.setParameter(anyString(), any())).thenReturn(query);
        when(query.setMaxResults(anyInt())).thenReturn(query);
        when(query.getResultList()).thenReturn(List.of(transacao));
-       ResponseEntity responseEntity = controller.consultarTransacoesDoCartao(UUID.randomUUID());
+       when(transacao.verificarSeEmailDoTokenEIgualAoEmailDaTransacao(anyString())).thenReturn(true);
+       ResponseEntity responseEntity = controller.consultarTransacoesDoCartao(UUID.randomUUID(), new String());
        Assertions.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
        Assertions.assertTrue(responseEntity.getBody() instanceof List);
     }

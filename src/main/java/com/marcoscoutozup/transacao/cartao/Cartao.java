@@ -26,4 +26,8 @@ public class Cartao {
     public CartaoResponse toResponse(){
         return new CartaoResponse(this.idCartao, this.email);
     }
+
+    public boolean verificarParidadeDeEmail(String email) {
+        return this.email.equals(email);
+    }
 }
