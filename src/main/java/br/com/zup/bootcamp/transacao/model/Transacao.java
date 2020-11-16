@@ -1,5 +1,7 @@
 package br.com.zup.bootcamp.transacao.model;
 
+import br.com.zup.bootcamp.transacao.security.JwtUtils;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -63,5 +65,10 @@ public class Transacao {
 
     public LocalDateTime getEfetivadaEm() {
         return efetivadaEm;
+    }
+
+    public boolean verificarSeCartaoEIgualAoEmailToken() {
+        String userEmail = JwtUtils.getUserEmail();
+        return this.cartao.getEmail().equals(userEmail);
     }
 }
