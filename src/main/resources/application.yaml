@@ -21,7 +21,7 @@ spring:
           issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:18080/auth/realms/nosso-cartao}
           jwk-set-uri: ${KEYCLOAK_JWKS_URI:http://localhost:18080/auth/realms/nosso-cartao/protocol/openid-connect/certs}
   application:
-    name: proposta
+    name: transacao
   kafka:
     bootstrap-servers: ${KAFKA_HOST:localhost:9092}
     consumer:
@@ -35,3 +35,24 @@ spring:
 
 consulta-paginada:
   quantidade-maxima: 10
+
+##metricas
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health,prometheus
+  metrics:
+    tags:
+      ambiente: ${AMBIENTE:desenvolvimento}
+      aplicacao: ${NOME_DA_APLICACAO:serviço de transação}
+
+# Jaeger
+opentracing:
+  jaeger:
+    enabled: ${JAEGER_ENABLED:true}
+    http-sender:
+      url: ${JAEGER_ENDPOINT:http://localhost:14268/api/traces}
+    probabilistic-sampler:
+      sampling-rate: ${JAEGER_SAMPLER:1}
+    service-name: ${spring.application.name}
