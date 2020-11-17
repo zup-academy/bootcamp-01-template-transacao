@@ -5,11 +5,15 @@ import javax.validation.constraints.NotBlank;
 
 @Embeddable
 public class Cartao {
-    private @NotBlank String id;
+    private @NotBlank String idCartao;
     private @NotBlank String email;
 
-    public Cartao(@NotBlank String id, @NotBlank String email) {
-        this.id = id;
+    @Deprecated
+    public Cartao() {
+    }
+
+    public Cartao(@NotBlank String idCartao, @NotBlank String email) {
+        this.idCartao = idCartao;
         this.email = email;
     }
 }

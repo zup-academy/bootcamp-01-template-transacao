@@ -4,10 +4,7 @@ import br.com.zup.transacao.cartao.Cartao;
 import br.com.zup.transacao.estabelecimento.Estabelecimento;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -30,8 +27,9 @@ public class Transacao {
     public Transacao() {
     }
 
-    public Transacao(String idTransacao, BigDecimal valor,
-                     Estabelecimento estabelecimento, Cartao cartao, LocalDateTime efetivadaEm) {
+    public Transacao(@NotBlank String idTransacao, @NotNull BigDecimal valor,
+                     @NotNull Estabelecimento estabelecimento, @NotNull Cartao cartao,
+                     @NotNull LocalDateTime efetivadaEm) {
         this.idTransacao = idTransacao;
         this.valor = valor;
         this.estabelecimento = estabelecimento;

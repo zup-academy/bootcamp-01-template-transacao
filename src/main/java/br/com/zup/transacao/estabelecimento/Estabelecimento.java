@@ -9,6 +9,10 @@ public class Estabelecimento {
     private @NotBlank String cidade;
     private @NotBlank String endereco;
 
+    @Deprecated
+    public Estabelecimento() {
+    }
+
     public Estabelecimento(@NotBlank String nome, @NotBlank String cidade, @NotBlank String endereco) {
         this.nome = nome;
         this.cidade = cidade;

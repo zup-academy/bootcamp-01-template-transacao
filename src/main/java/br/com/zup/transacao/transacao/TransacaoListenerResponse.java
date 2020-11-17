@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 public class TransacaoListenerResponse {
     private String id;
     private BigDecimal valor;
-    private EstabelecimentoListenerResponse estabelecimentoListenerResponse;
-    private CartaoListenerResponse cartaoListenerResponse;
+    private EstabelecimentoListenerResponse estabelecimento;
+    private CartaoListenerResponse cartao;
     private LocalDateTime efetivadaEm;
 
-    public Transacao toTransacao() {
-        return new Transacao(id, valor, estabelecimentoListenerResponse.toModel(),
-                cartaoListenerResponse.toModel(), efetivadaEm);
+    public Transacao toModel() {
+        return new Transacao(id, valor, estabelecimento.toModel(),
+                cartao.toModel(), efetivadaEm);
     }
 
     @Override
@@ -23,8 +23,8 @@ public class TransacaoListenerResponse {
         return "TransacaoListenerResponse{" +
                 "id='" + id + '\'' +
                 ", valor=" + valor +
-                ", estabelecimentoListenerResponse=" + estabelecimentoListenerResponse +
-                ", cartaoListenerResponse=" + cartaoListenerResponse +
+                ", estabelecimentoListenerResponse=" + estabelecimento +
+                ", cartaoListenerResponse=" + cartao +
                 ", efetivadaEm=" + efetivadaEm +
                 '}';
     }
@@ -45,20 +45,20 @@ public class TransacaoListenerResponse {
         this.valor = valor;
     }
 
-    public EstabelecimentoListenerResponse getEstabelecimentoListenerResponse() {
-        return estabelecimentoListenerResponse;
+    public EstabelecimentoListenerResponse getEstabelecimento() {
+        return estabelecimento;
     }
 
-    public void setEstabelecimentoListenerResponse(EstabelecimentoListenerResponse estabelecimentoListenerResponse) {
-        this.estabelecimentoListenerResponse = estabelecimentoListenerResponse;
+    public void setEstabelecimento(EstabelecimentoListenerResponse estabelecimento) {
+        this.estabelecimento = estabelecimento;
     }
 
-    public CartaoListenerResponse getCartaoListenerResponse() {
-        return cartaoListenerResponse;
+    public CartaoListenerResponse getCartao() {
+        return cartao;
     }
 
-    public void setCartaoListenerResponse(CartaoListenerResponse cartaoListenerResponse) {
-        this.cartaoListenerResponse = cartaoListenerResponse;
+    public void setCartao(CartaoListenerResponse cartao) {
+        this.cartao = cartao;
     }
 
     public LocalDateTime getEfetivadaEm() {
