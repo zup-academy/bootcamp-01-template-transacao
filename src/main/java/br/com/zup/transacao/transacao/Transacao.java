@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Transacao {
@@ -35,5 +37,13 @@ public class Transacao {
         this.estabelecimento = estabelecimento;
         this.cartao = cartao;
         this.efetivadaEm = efetivadaEm;
+    }
+
+    public TransacaoResponse toResponse() {
+        return new TransacaoResponse(valor, estabelecimento.toResponse(), cartao.toResponse(), efetivadaEm);
+    }
+
+    public static List<TransacaoResponse> toResponseList(List<Transacao> transacoes) {
+        return transacoes.stream().map(Transacao::toResponse).collect(Collectors.toList());
     }
 }

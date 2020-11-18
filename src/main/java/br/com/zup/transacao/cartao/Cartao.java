@@ -16,4 +16,8 @@ public class Cartao {
         this.idCartao = idCartao;
         this.email = email;
     }
+
+    public CartaoResponse toResponse() {
+        return new CartaoResponse(idCartao, email);
+    }
 }
