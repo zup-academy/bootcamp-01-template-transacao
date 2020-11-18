@@ -1,5 +1,7 @@
 package br.com.zup.transacao.dto.response;
 
+import br.com.zup.transacao.model.Transacao;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -7,9 +9,9 @@ public class TransacaoResponse {
 
     private BigDecimal valor;
 
-    private EstabelecimentoResponse estabelecimentoResponse;
+    private EstabelecimentoResponse estabelecimento;
 
-    private CartaoResponse cartaoResponse;
+    private CartaoResponse cartao;
 
     private LocalDateTime efetivadaEm;
 
@@ -17,10 +19,10 @@ public class TransacaoResponse {
     public TransacaoResponse() {
     }
 
-    public TransacaoResponse(BigDecimal valor, EstabelecimentoResponse estabelecimentoResponse, CartaoResponse cartaoResponse, LocalDateTime efetivadaEm) {
-        this.valor = valor;
-        this.estabelecimentoResponse = estabelecimentoResponse;
-        this.cartaoResponse = cartaoResponse;
-        this.efetivadaEm = efetivadaEm;
+    public TransacaoResponse(Transacao transacao) {
+        this.valor = transacao.getValor();
+        this.estabelecimento = new EstabelecimentoResponse(transacao.getEstabelecimento());
+        this.cartao = new CartaoResponse(transacao.getCartao());
+        this.efetivadaEm = transacao.getEfetivadaEm();
     }
 }

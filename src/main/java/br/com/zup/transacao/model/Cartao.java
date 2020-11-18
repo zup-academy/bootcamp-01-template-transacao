@@ -3,29 +3,35 @@ package br.com.zup.transacao.model;
 import br.com.zup.transacao.dto.response.CartaoResponse;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
-@Embeddable
+@Entity
 public class Cartao {
 
-    @NotNull
-    private UUID cartaoID;
+    @Id
+    private String id;
 
     @NotBlank
     private String email;
 
     @Deprecated
-    public Cartao() {
+    public Cartao(){
     }
 
-    public Cartao(@NotNull UUID cartaoID, @NotBlank String email) {
-        this.cartaoID = cartaoID;
+    public Cartao(@NotNull String id, @NotBlank String email) {
+        this.id = id;
         this.email = email;
     }
 
-    public CartaoResponse toResponse(){
-        return new CartaoResponse(this.cartaoID, this.email);
+    public String getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

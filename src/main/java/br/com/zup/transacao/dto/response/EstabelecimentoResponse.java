@@ -1,5 +1,7 @@
 package br.com.zup.transacao.dto.response;
 
+import br.com.zup.transacao.model.Estabelecimento;
+
 public class EstabelecimentoResponse {
 
     private String nome;
@@ -8,9 +10,9 @@ public class EstabelecimentoResponse {
 
     private String endereco;
 
-    public EstabelecimentoResponse(String nome, String cidade, String endereco) {
-        this.nome = nome;
-        this.cidade = cidade;
-        this.endereco = endereco;
+    public EstabelecimentoResponse(Estabelecimento estabelecimento) {
+        this.nome = estabelecimento.getNome();
+        this.cidade = estabelecimento.getCidade();
+        this.endereco = estabelecimento.getEndereco();
     }
 }

@@ -1,21 +1,15 @@
 package br.com.zup.transacao.model;
 
-import br.com.zup.transacao.dto.response.TransacaoResponse;
-import org.springframework.util.Assert;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Entity
-@NamedQuery(
-        name = "findTransacoesPorCartao",
-        query = "SELECT t FROM Transacao t WHERE t.cartao.cartaoID = :cartaoID ORDER BY efetivadaEm DESC")
 public class Transacao {
 
     @Id
@@ -23,41 +17,53 @@ public class Transacao {
     private UUID id;
 
     @NotNull
-    private UUID transacaoID;
+    private UUID idTransacao;
 
     @NotNull
-    @Positive
     private BigDecimal valor;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
     @NotNull
+    private Cartao cartao;
+
     @Embedded
+    @NotNull
     private Estabelecimento estabelecimento;
 
     @NotNull
-    @Embedded
-    private Cartao cartao;
-
-    @NotNull
-        private LocalDateTime efetivadaEm;
+    private LocalDateTime efetivadaEm;
 
     @Deprecated
-    public Transacao() {
+    public Transacao(){
     }
 
-    public Transacao(@NotNull UUID transacaoID, @NotNull @Positive BigDecimal valor, @NotNull Estabelecimento estabelecimento, @NotNull Cartao cartao, @NotNull LocalDateTime efetivadaEm) {
-        this.transacaoID = transacaoID;
+    public Transacao(@NotNull UUID idTransacao, @NotNull BigDecimal valor, Cartao cartao, Estabelecimento estabelecimento, @NotNull String efetivadaEm) {
+        this.idTransacao = idTransacao;
         this.valor = valor;
-        this.estabelecimento = estabelecimento;
         this.cartao = cartao;
-        this.efetivadaEm = efetivadaEm;
+        this.estabelecimento = estabelecimento;
+        this.efetivadaEm = converterParaLocalDate(efetivadaEm);
     }
 
-    public TransacaoResponse toResponse(){
-        return new TransacaoResponse(this.valor, this.estabelecimento.toResponse(), this.cartao.toResponse(), this.efetivadaEm);
+    private LocalDateTime converterParaLocalDate(String efetivadaEm) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss").withZone(ZoneId.of("UTC"));
+        return LocalDateTime.parse(efetivadaEm, formatter);
     }
 
-    public static List<TransacaoResponse> toResponseList(List<Transacao> transacoes){
-        Assert.notNull(transacoes, "A lista de transações não pode ser nula");
-        return transacoes.stream().map(Transacao::toResponse).collect(Collectors.toList());
+    public BigDecimal getValor() {
+        return valor;
     }
+
+    public Cartao getCartao() {
+        return cartao;
+    }
+
+    public Estabelecimento getEstabelecimento() {
+        return estabelecimento;
+    }
+
+    public LocalDateTime getEfetivadaEm() {
+        return efetivadaEm;
+    }
+
 }

@@ -1,46 +1,46 @@
 package br.com.zup.transacao.controller;
-
+import br.com.zup.transacao.utils.Error;
+import br.com.zup.transacao.dto.response.TransacaoResponse;
 import br.com.zup.transacao.model.Transacao;
+import br.com.zup.transacao.repository.TransacaoRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.persistence.EntityManager;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/transacoes")
 public class TransacaoController {
 
-    private final EntityManager entityManager;
+    private final TransacaoRepository transacaoRepository;
 
-    private final int quantidadeMaximaDeResultados;
+    private final int quantidadeDeResultados;
 
-    public TransacaoController(EntityManager entityManager,  @Value("${resultados.quantidade.maxima}") int quantidadeMaximaDeResultados) {
-        this.entityManager = entityManager;
-        this.quantidadeMaximaDeResultados = quantidadeMaximaDeResultados;
+    public TransacaoController(TransacaoRepository transacaoRepository,  @Value("${resultados.quantidade.maxima}") int quantidadeDeResultados) {
+        this.transacaoRepository = transacaoRepository;
+        this.quantidadeDeResultados = quantidadeDeResultados;
     }
 
     @GetMapping("/{cartaoID}")
-    public ResponseEntity consultarTransacoesDoCartao(@PathVariable UUID cartaoID){
-        List<Transacao> transacoes = entityManager.createNamedQuery("findTransacoesPorCartao", Transacao.class)
-                .setParameter("cartaoID", cartaoID)
-                .setMaxResults(quantidadeMaximaDeResultados)
-                .getResultList();
+    public ResponseEntity<?> consultarTransacoesDoCartao(@PathVariable String cartaoID){
 
-        if(transacoes.isEmpty()){
-            Map response = new HashMap();
-            response.put("mensagem", "Nenhuma transação foi encontrada para o cartão " + cartaoID);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        Pageable pageable = PageRequest.of(0, quantidadeDeResultados, Sort.by("efetivadaEm").descending());
+        List<Transacao> transacoes = transacaoRepository.findAllByCartaoId(cartaoID, pageable);
+
+        if (transacoes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Error(Arrays.asList("Transacao não encontrada")));
         }
 
-        return ResponseEntity.ok(Transacao.toResponseList(transacoes));
+        List<TransacaoResponse> transacaoResponse = transacoes.stream().map(TransacaoResponse::new).collect(Collectors.toList());
+
+        return ResponseEntity.ok(transacaoResponse);
     }
 }

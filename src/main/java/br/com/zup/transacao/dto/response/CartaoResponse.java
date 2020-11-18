@@ -1,14 +1,16 @@
 package br.com.zup.transacao.dto.response;
 
+import br.com.zup.transacao.model.Cartao;
+
 import java.util.UUID;
 
 public class CartaoResponse {
 
-    private UUID cartaoID;
+    private String cartaoID;
     private String email;
 
-    public CartaoResponse(UUID cartaoID, String email) {
-        this.cartaoID = cartaoID;
-        this.email = email;
+    public CartaoResponse(Cartao cartao) {
+        this.cartaoID = cartao.getId();
+        this.email = cartao.getEmail();
     }
 }
