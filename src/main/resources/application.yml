@@ -1,0 +1,45 @@
+server:
+  port: ${SERVER_PORT:8081}
+spring:
+  application:
+    name: transacoes
+  datasource:
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5434}/${DATABASE_NAME:dev_transacao}
+    username: ${DATABASE_USER:transacoes}
+    password: ${DATABASE_PASSWORD:password}
+  jpa:
+    hibernate:
+      ddl-auto: ${DATABASE_DDL_AUTO:update}
+    properties:
+      hibernate:
+        show_sql: ${JPA_SHOW_SQL:true}
+        format_sql: ${JPA_FORMAT_SQL:true}
+  kafka:
+    bootstrap-servers: ${KAFKA_HOST:localhost:9092}
+    topic:
+      transactions: ${KAKFA_TOPICS_TRANSACTIONS:transacoes}
+    consumer:
+      auto-offset-reset: ${KAFKA_AUTO-OFFSET-RESET:latest}
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:transacoes}
+      key-deserializer: org.apache.kafka.common.serialization.StringSerializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:18080/auth/realms/desafio3}
+          jtw-set-uri: ${KEYCLOAK_JWKS_URI:http://localhost:18080/auth/realms/desafio3/protocol/openid-connect/certs}
+
+## Spring Actuator
+management:
+  metrics:
+    tags:
+      aplicacao: ${NOME_APLICACAO:Serviço de Transações}
+      ambiente: ${AMBIENTE:desenvolvimento}
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus,info
+
+propostas:
+  url: ${PROPOSTAS_URL:localhost:8080}
