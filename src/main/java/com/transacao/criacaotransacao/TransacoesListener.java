@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 
 @Component
 public class TransacoesListener {
@@ -19,14 +20,8 @@ public class TransacoesListener {
 
     @KafkaListener(topics = "${spring.kafka.topic.transactions}")
     @Transactional
-    public void ouvir(@Payload TransacaoResponseListener transacaoResponse) {
+    public void ouvir(@Payload @NotNull TransacaoResponseListener transacaoResponse) {
         Transacoes transacao = transacaoResponse.toTransacao();
-        try {
-            manager.persist(transacao);
-        } catch (Exception exception) {
-            // Transação duplicada, atualizar dados?
-            // manager.merge(transacao);
-            String t = "";
-        }
+        manager.persist(transacao);
     }
 }
