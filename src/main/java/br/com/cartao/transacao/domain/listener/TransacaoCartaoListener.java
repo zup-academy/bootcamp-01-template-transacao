@@ -1,12 +1,15 @@
 package br.com.cartao.transacao.domain.listener;
 
+import br.com.cartao.transacao.domain.model.Cartao;
 import br.com.cartao.transacao.domain.model.EstabelecimentoCompra;
 import br.com.cartao.transacao.domain.model.TransacaoCartao;
 import br.com.cartao.transacao.repository.CartaoRepository;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * Carga intrínseca máxima permitida - 9
@@ -93,9 +96,12 @@ public class TransacaoCartaoListener {
     }
     // +1
     public TransacaoCartao toModel(CartaoRepository cartaoRepository){
+        Cartao cartao = cartaoRepository.findById(this.id).get();
+        Assert.notNull(cartao,"Cartão não encontrado para o id.");
+
         // +1
         EstabelecimentoCompra estabelecimentoCompra = this.estabelecimento.toModel();
-        return new TransacaoCartao(this.id,this.valor,estabelecimentoCompra, this.cartao.getId(), this.cartao.getEmail(), LocalDateTime.parse(this.efetivadaEm));
+        return new TransacaoCartao(this.id,this.valor,estabelecimentoCompra, cartao, this.cartao.getEmail(), LocalDateTime.parse(this.efetivadaEm));
     }
 }
 

@@ -1,10 +1,10 @@
 package br.com.cartao.transacao.domain.model;
 
-import br.com.cartao.transacao.domain.enums.EstadoCartao;
 import br.com.cartao.transacao.utils.Encoder;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -13,59 +13,36 @@ import javax.validation.constraints.NotBlank;
  */
 
 @Entity
+@Table(name = "cartao")
 public class Cartao {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    private String idCartao;
+
+    private String idProposta;
+
     @NotBlank
-    private String cartaoId;
-
-    @Enumerated(EnumType.STRING)
-    // +1
-    private EstadoCartao estadoCartao;
-
-    @OneToOne
-    // +1
-    private Proposta proposta;
+    private String numeroCartao;
 
     @Deprecated
     public Cartao() {
     }
 
-    public Cartao(String cartaoId, Proposta proposta) {
-        this.cartaoId = Encoder.encode(cartaoId);
-        this.proposta = proposta;
-        this.estadoCartao = EstadoCartao.ATIVO;
+    public Cartao(String idCartao, String idProposta, String numeroCartao) {
+        this.numeroCartao = Encoder.encode(numeroCartao);
+        this.idProposta = idProposta;
+        this.idCartao = idCartao;
     }
 
-    public String getId() {
-        return id;
+    public String getIdCartao() {
+        return idCartao;
     }
 
-    public String getCartaoId() {
-        return cartaoId;
+    public String getIdProposta() {
+        return idProposta;
     }
 
-    public Proposta getProposta() {
-        return proposta;
+    public String getNumeroCartao() {
+        return numeroCartao;
     }
-
-    public EstadoCartao getEstadoCartao() {
-        return estadoCartao;
-    }
-
-    public void MudaEstadoCartao(EstadoCartao estadoCartao){
-        this.estadoCartao = estadoCartao;
-    }
-
-    public void estadoCartaoBloqueado(){
-        this.estadoCartao = EstadoCartao.BLOQUEADO;
-    }
-
-    public void estadoCartaoComFalha(){
-        this.estadoCartao = EstadoCartao.FALHA;
-    }
-
 }

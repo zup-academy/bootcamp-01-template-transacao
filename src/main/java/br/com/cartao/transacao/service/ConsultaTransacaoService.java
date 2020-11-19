@@ -31,7 +31,7 @@ public class ConsultaTransacaoService {
         List<TransacaoCartaoResponseDto> todasTransacoesDoCartao = transacaoCartaoRepository.findAll(Sort.by("efetivadaEm").descending()).stream()
                 // +1
                 .filter(transacaoCartao ->
-                        idCartao.equals(Encoder.decode(transacaoCartao.getIdCartao()))
+                        idCartao.equals(Encoder.decode(transacaoCartao.getCartao().getNumeroCartao()))
                 )
                 // +1
                 .map(transacaoCartao -> {

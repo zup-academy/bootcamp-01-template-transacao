@@ -1,5 +1,8 @@
 package br.com.cartao.transacao.domain.request;
 
+import br.com.cartao.transacao.domain.model.Cartao;
+
+import javax.persistence.EntityManager;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -23,7 +26,9 @@ public class CartaoTransacaoRequest {
         return email;
     }
 
-    public CartaoIntegracaoRequest toIntegracao(){
-        return new CartaoIntegracaoRequest(this.idCartao, this.email);
+    public CartaoIntegracaoRequest toIntegracao(EntityManager manager){
+        Cartao cartao = manager.find(Cartao.class, this.idCartao);
+
+        return new CartaoIntegracaoRequest(cartao.getNumeroCartao(), this.email);
     }
 }

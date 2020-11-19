@@ -12,8 +12,10 @@ public class SecurityWebConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers(HttpMethod.POST,"/v1/transacoes/**").hasAuthority("SCOPE_transacao:write")
                 .antMatchers(HttpMethod.GET, "/v1/transacoes/**").hasAuthority("SCOPE_transacao:read")
-                .antMatchers(HttpMethod.POST, "/v1/transacoes/**").hasAuthority("SCOPE_transacao:write")
+                .antMatchers(HttpMethod.GET, "/v1/transacoes/**").hasAuthority("SCOPE_transacao:write")
+                .anyRequest().authenticated()
                 .and()
                     .csrf().disable()
                     .httpBasic().disable()

@@ -1,5 +1,6 @@
 package br.com.cartao.transacao.configuration;
 
+import br.com.cartao.transacao.domain.listener.CartaoPropostaListener;
 import br.com.cartao.transacao.domain.listener.TransacaoCartaoListener;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -14,7 +15,7 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 import java.util.HashMap;
 import java.util.Map;
 
- @Configuration
+@Configuration
 public class KafkaConfiguration {
 
     private final KafkaProperties kafkaProperties;
@@ -46,6 +47,22 @@ public class KafkaConfiguration {
     public ConcurrentKafkaListenerContainerFactory<String, TransacaoCartaoListener> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, TransacaoCartaoListener> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(transactionConsumerFactory());
+
+        return factory;
+    }
+
+    @Bean
+    public ConsumerFactory<String, CartaoPropostaListener> transactionConsumerFactoryCartao() {
+        StringDeserializer stringDeserializer = new StringDeserializer();
+        JsonDeserializer<CartaoPropostaListener> jsonDeserializer = new JsonDeserializer<>(CartaoPropostaListener.class, false);
+
+        return new DefaultKafkaConsumerFactory<>(consumerConfigurations(), stringDeserializer, jsonDeserializer);
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, CartaoPropostaListener> kafkaListenerContainerFactoryCartao() {
+        ConcurrentKafkaListenerContainerFactory<String, CartaoPropostaListener> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(transactionConsumerFactoryCartao());
 
         return factory;
     }

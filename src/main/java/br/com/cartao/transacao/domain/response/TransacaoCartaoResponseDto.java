@@ -3,6 +3,7 @@ package br.com.cartao.transacao.domain.response;
 import br.com.cartao.transacao.domain.model.EstabelecimentoCompra;
 import br.com.cartao.transacao.domain.model.TransacaoCartao;
 import br.com.cartao.transacao.utils.Encoder;
+import br.com.cartao.transacao.utils.OfuscaDadosSensiveis;
 
 import javax.persistence.Embedded;
 import javax.validation.constraints.NotBlank;
@@ -26,12 +27,12 @@ public class TransacaoCartaoResponseDto {
     private LocalDateTime efetivadaEm;
 
     public TransacaoCartaoResponseDto(TransacaoCartao transacaoCartao) {
-        String decode = Encoder.decode(transacaoCartao.getIdCartao());
+        String decode = Encoder.decode(transacaoCartao.getCartao().getNumeroCartao());
         this.id = transacaoCartao.getId();
         this.idTransacaoLegado = transacaoCartao.getIdTransacaoLegado();
         this.valor = transacaoCartao.getValor();
         this.estabelecimento = transacaoCartao.getEstabelecimento();
-        this.idCartao = decode.substring(0,3).concat("**********").concat(decode.substring(decode.length()-3, decode.length()));
+        this.idCartao = OfuscaDadosSensiveis.executa(decode);
         this.email = transacaoCartao.getEmail();
         this.efetivadaEm = transacaoCartao.getEfetivadaEm();
     }

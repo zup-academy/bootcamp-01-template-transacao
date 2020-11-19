@@ -1,4 +1,4 @@
-package br.com.cartao.transacao.service;
+package br.com.cartao.transacao.listeners;
 
 import br.com.cartao.transacao.domain.listener.TransacaoCartaoListener;
 import br.com.cartao.transacao.domain.model.TransacaoCartao;
@@ -25,7 +25,7 @@ public class ListenerDeTransacao {
     }
 
 
-    @KafkaListener(topics = "${spring.kafka.topic.transactions}")
+    @KafkaListener(topics = "${spring.kafka.topic.transactions}", containerFactory = "kafkaListenerContainerFactory")
     public void ouvir(TransacaoCartaoListener eventoDeTransacao) {
         logger.info("Evento transação recebido, idTransação: {}", eventoDeTransacao.getId());
         TransacaoCartao transacaoCartao = eventoDeTransacao.toModel(cartaoRepository);

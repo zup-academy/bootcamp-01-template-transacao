@@ -24,8 +24,8 @@ public class TransacaoCartao {
     private BigDecimal valor;
     @Embedded
     private EstabelecimentoCompra estabelecimento;
-    @NotBlank
-    private String idCartao;
+    @ManyToOne
+    private Cartao cartao;
     @NotBlank
     private String email;
     private LocalDateTime efetivadaEm;
@@ -34,11 +34,11 @@ public class TransacaoCartao {
     public TransacaoCartao() {
     }
 
-    public TransacaoCartao(String idTransacaoListener, BigDecimal valor, EstabelecimentoCompra estabelecimento, String idCartao, String email, LocalDateTime efetivadaEm) {
+    public TransacaoCartao(String idTransacaoListener, BigDecimal valor, EstabelecimentoCompra estabelecimento, Cartao cartao, String email, LocalDateTime efetivadaEm) {
         this.idTransacaoLegado = idTransacaoListener;
         this.valor = valor;
         this.estabelecimento = estabelecimento;
-        this.idCartao = Encoder.encode(idCartao);
+        this.cartao = cartao;
         this.email = email;
         this.efetivadaEm = efetivadaEm;
     }
@@ -59,8 +59,8 @@ public class TransacaoCartao {
         return estabelecimento;
     }
 
-    public String getIdCartao() {
-        return idCartao;
+    public Cartao getCartao() {
+        return cartao;
     }
 
     public String getEmail() {
