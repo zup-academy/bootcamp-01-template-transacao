@@ -10,7 +10,11 @@ import java.time.LocalDateTime;
 public class Transacoes {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+
+    @NotNull
+    private String idTransacao;
 
     @NotNull
     @Positive
@@ -31,14 +35,53 @@ public class Transacoes {
 
     }
 
-    public Transacoes(String id, @NotNull @Positive BigDecimal valor, @NotNull Estabelecimento estabelecimento,
+    public Transacoes(String idTransacao, @NotNull @Positive BigDecimal valor, @NotNull Estabelecimento estabelecimento,
                       @NotNull Cartao cartao, LocalDateTime efetivadaEm) {
-        this.id = id;
+        this.idTransacao = idTransacao;
         this.valor = valor;
         this.estabelecimento = estabelecimento;
         this.cartao = cartao;
         this.efetivadaEm = efetivadaEm;
     }
 
-    //Lista de transacoes?
+    public String getIdTransacao() {
+        return idTransacao;
+    }
+
+    public void setIdTransacao(String idTransacao) {
+        this.idTransacao = idTransacao;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
+    public Estabelecimento getEstabelecimento() {
+        return estabelecimento;
+    }
+
+    public void setEstabelecimento(Estabelecimento estabelecimento) {
+        this.estabelecimento = estabelecimento;
+    }
+
+    public Cartao getCartao() {
+        return cartao;
+    }
+
+    public void setCartao(Cartao cartao) {
+        this.cartao = cartao;
+    }
+
+    public LocalDateTime getEfetivadaEm() {
+        return efetivadaEm;
+    }
+
+    public void setEfetivadaEm(LocalDateTime efetivadaEm) {
+        this.efetivadaEm = efetivadaEm;
+    }
+//Lista de transacoes?
 }

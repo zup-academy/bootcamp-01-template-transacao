@@ -33,4 +33,16 @@ public class Estabelecimento {
     public EstabelecimentoResponse toResponse(){
         return new EstabelecimentoResponse(this.nome, this.cidade, this.endereco);
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
 }

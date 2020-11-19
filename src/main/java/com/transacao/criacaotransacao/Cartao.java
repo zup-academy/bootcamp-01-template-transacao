@@ -8,7 +8,7 @@ public class Cartao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @NotBlank
     private String idCartao;
@@ -16,6 +16,7 @@ public class Cartao {
     @NotBlank
     private String email;
 
+    @Deprecated
     public Cartao() {
 
     }
@@ -28,4 +29,28 @@ public class Cartao {
      public CartaoResponse toResponse() {
          return new CartaoResponse(this.idCartao, this.email);
      }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIdCartao() {
+        return idCartao;
+    }
+
+    public void setIdCartao(String idCartao) {
+        this.idCartao = idCartao;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
