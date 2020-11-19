@@ -13,6 +13,9 @@ public class BuscaOuCadastraCartaoDTO {
     }
 
     public BuscaOuCadastraCartaoDTO(ResultadoCartaoDTO resultadoDTO, String email) {
+        setEmail(email);
+        setId(resultadoDTO.getId());
+        setLegadoId(resultadoDTO.getLegadoId());
     }
 
     public String getId() {

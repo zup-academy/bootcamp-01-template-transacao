@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.Instant;
 
 
-// 1 HandlerAdviceUtils.java
-// 2 ErroResponseDTO.java
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class HttpMessageNotReadableHandler {
