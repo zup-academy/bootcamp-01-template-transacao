@@ -1,6 +1,5 @@
 package com.transacao.criacaotransacao;
 
-import javax.persistence.Embedded;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
