@@ -20,7 +20,8 @@ public class TransacaoController {
 
     @GetMapping("/{idCartao}")
     public ResponseEntity consultarTransacoes(@PathVariable String idCartao) {
-        List<Transacao> transacoes = transacaoRepository.findByCartaoIdCartao(idCartao);
+        List<Transacao> transacoes = transacaoRepository
+                .findTop10ByCartaoIdCartaoOrderByEfetivadaEmDesc(idCartao);
 
         if (transacoes.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

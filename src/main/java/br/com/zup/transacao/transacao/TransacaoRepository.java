@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface TransacaoRepository extends CrudRepository<Transacao, String> {
-    public List<Transacao> findByCartaoIdCartao(String idCartao);
+    public List<Transacao> findTop10ByCartaoIdCartaoOrderByEfetivadaEmDesc(String idCartao);
 }
