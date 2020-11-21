@@ -30,6 +30,7 @@ public class TransacaoController {
 
     @GetMapping("/{idCartao}")
     public ResponseEntity consultaTransacoesDoCartao(@PathVariable String idCartao){
+        //1
         List<Transacao> transacoes = entityManager.createNamedQuery("findTransacoesPorCartao", Transacao.class)
                 .setParameter("idCartao", idCartao)
                 .setMaxResults(quantidadeMaximaDeResultado)

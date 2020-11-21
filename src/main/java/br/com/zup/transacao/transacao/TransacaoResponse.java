@@ -9,7 +9,9 @@ import java.time.LocalDateTime;
 public class TransacaoResponse {
 
     private BigDecimal valor;
+    //1
     private EstabelecimentoResponse estabelecimentoResponse;
+    //2
     private CartaoResponse cartaoResponse;
     private LocalDateTime efetivadaEm;
 

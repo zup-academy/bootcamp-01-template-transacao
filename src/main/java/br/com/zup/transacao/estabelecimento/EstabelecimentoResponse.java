@@ -1,7 +1,5 @@
 package br.com.zup.transacao.estabelecimento;
 
-import org.apache.kafka.common.protocol.types.Field;
-
 public class EstabelecimentoResponse {
 
     private String nome;

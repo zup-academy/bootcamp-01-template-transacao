@@ -29,11 +29,11 @@ public class Transacao {
     @NotNull
     @Positive
     private BigDecimal valor;
-
+    //1
     @NotNull
     @Embedded
     private Estabelecimento estabelecimento;
-
+    //2
     @NotNull
     @Embedded
     private Cartao cartao;
@@ -52,7 +52,7 @@ public class Transacao {
         this.cartao = cartao;
         this.efetivadaEm = efetivadaEm;
     }
-
+    //3
     public TransacaoResponse toResponse(){
         return new TransacaoResponse(this.valor, this.estabelecimento.toResponse(), this.cartao.toResponse(), this.efetivadaEm);
     }

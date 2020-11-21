@@ -24,7 +24,7 @@ public class Estabelecimento {
         this.cidade = cidade;
         this.endereco = endereco;
     }
-
+    //1
     public EstabelecimentoResponse toResponse(){
         return new EstabelecimentoResponse(nome, cidade, endereco);
     }

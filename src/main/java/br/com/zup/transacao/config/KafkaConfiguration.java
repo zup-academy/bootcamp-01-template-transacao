@@ -35,7 +35,7 @@ public class KafkaConfiguration {
         return properties;
 
     }
-
+    //1
     @Bean // Configura consumidor
     public ConsumerFactory<String, TransacaoListenerResponse> transactionConsumerFactory() {
         StringDeserializer stringDeserializer = new StringDeserializer();

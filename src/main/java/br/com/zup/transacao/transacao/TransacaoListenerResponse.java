@@ -10,10 +10,12 @@ public class TransacaoListenerResponse {
 
     private String id;
     private BigDecimal valor;
+    //1
     private EstabelecimentoListenerResponse estabelecimentoListenerResponse;
+    //2
     private CartaoListenerResponse cartaoListenerResponse;
     private LocalDateTime efetivadaEm;
-
+    //3
     public Transacao toTransacao(){
         return new Transacao(id, valor, estabelecimentoListenerResponse.toEstabelecimento(), cartaoListenerResponse.toCartao(), efetivadaEm);
     }

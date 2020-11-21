@@ -15,7 +15,7 @@ public class TransacaoListener {
     public TransacaoListener(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-
+    //1
     @KafkaListener(topics = "${spring.kafka.topic.transactions}")
     @Transactional
     public void ouvir(TransacaoListenerResponse transacaoListenerResponse) {
